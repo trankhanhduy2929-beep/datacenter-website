@@ -5,3 +5,8 @@ datacenter.db
 *.log
 .DS_Store
 .vercel
+
+# Database và uploads
+data/
+uploads/
+
