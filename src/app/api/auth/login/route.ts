@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { verifyPassword, generateToken } from '@/lib/auth';
 
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  created_at: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
@@ -10,7 +19,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Thiếu thông tin đăng nhập' }, { status: 400 });
     }
 
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as User | undefined;
 
     if (!user) {
       return NextResponse.json({ error: 'Email không tồn tại' }, { status: 401 });

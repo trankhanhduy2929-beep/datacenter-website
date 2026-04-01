@@ -2,22 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/auth';
 import db from '@/lib/db';
 
-// Middleware để bảo vệ các route
-export function middleware(req: NextRequest) {
-  const token = req.headers.get('authorization')?.replace('Bearer ', '');
-
-  if (!token) {
-    return NextResponse.json({ error: 'Không có token' }, { status: 401 });
-  }
-
-  const user = verifyToken(token);
-  if (!user) {
-    return NextResponse.json({ error: 'Token không hợp lệ' }, { status: 401 });
-  }
-
-  return NextResponse.next();
-}
-
 export async function GET(req: NextRequest) {
   const token = req.headers.get('authorization')?.replace('Bearer ', '');
 

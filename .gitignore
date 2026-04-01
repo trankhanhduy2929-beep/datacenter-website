@@ -4,3 +4,4 @@ node_modules
 datacenter.db
 *.log
 .DS_Store
+.vercel
